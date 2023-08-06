@@ -25,15 +25,18 @@ app.get("/api", function (req, res) {
   res.json({ unix: date.getTime(), utc: date.toUTCString() });
 });
 
-app.get("/api/:timeStamp", function (req, res) {
-  let input = req.params.timeStamp;
-  if (/^\d+$/.test(input)) date = new Date(Number(input));
-  else {
-    const [year, month, day] = input.split("-").map(Number);
-    let currentHour = new Date().getHours();
+app.get("/api/:date", function (req, res) {
+  // let input = req.params.timeStamp;
+  // if (/^\d+$/.test(input)) date = new Date(Number(input));
+  // else {
+  //   const [year, month, day] = input.split("-").map(Number);
+  //   let currentHour = new Date().getHours();
 
-    date = new Date(year, month - 1, day + 1 || 2, -currentHour);
-  }
+  //   date = new Date(year, month - 1, day + 1 || 2, -currentHour);
+  // }
+  // if (isNaN(date)) return res.json({ error: "Invalid Date" });
+  // res.json({ unix: date.getTime(), utc: date.toUTCString() });
+  let date = new Date(req.params.date);
   if (isNaN(date)) return res.json({ error: "Invalid Date" });
   res.json({ unix: date.getTime(), utc: date.toUTCString() });
 });
