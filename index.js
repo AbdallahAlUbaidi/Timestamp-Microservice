@@ -26,17 +26,10 @@ app.get("/api", function (req, res) {
 });
 
 app.get("/api/:date", function (req, res) {
-  // let input = req.params.timeStamp;
-  // if (/^\d+$/.test(input)) date = new Date(Number(input));
-  // else {
-  //   const [year, month, day] = input.split("-").map(Number);
-  //   let currentHour = new Date().getHours();
-
-  //   date = new Date(year, month - 1, day + 1 || 2, -currentHour);
-  // }
-  // if (isNaN(date)) return res.json({ error: "Invalid Date" });
-  // res.json({ unix: date.getTime(), utc: date.toUTCString() });
-  let date = new Date(req.params.date);
+  let input = req.params.date;
+  let date;
+  if (!isNaN(input)) date = new Date(Number(input));
+  else date = new Date(input);
   if (isNaN(date)) return res.json({ error: "Invalid Date" });
   res.json({ unix: date.getTime(), utc: date.toUTCString() });
 });
